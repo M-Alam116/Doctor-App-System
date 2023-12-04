@@ -1,0 +1,13 @@
+@import url(app.css);
+
+.hero {
+  display: flex;
+  height: 90vh;
+  margin: 0 auto;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+  background: url("/public/hero-bg.jpg");
+  background-position: center;
+  background-size: cover;
+}
