@@ -59,13 +59,13 @@ const ApplyDoctor = () => {
         className="register-section flex-center apply-doctor"
         id="contact"
       >
-        <div className="register-container flex-center contact">
-          <h2 className="form-heading">Apply for Doctor</h2>
+        <div className="flex flex-col gap-[2rem] shadow-2xl p-[3rem] rounded-md w-full max-w-[500px]">
+          <h2 className="page-heading leading-[40px]">Apply for Doctor</h2>
           <form className="register-form ">
             <input
               type="text"
               name="specialization"
-              className="form-input"
+              className="p-[15px] outline-none border-b-2 border-b-gray-300 focus:border-b-[--darker-blue]"
               placeholder="Enter your specialization"
               value={formDetails.specialization}
               onChange={inputChange}
@@ -73,7 +73,7 @@ const ApplyDoctor = () => {
             <input
               type="number"
               name="experience"
-              className="form-input"
+              className="p-[15px] outline-none border-b-2 border-b-gray-300 focus:border-b-[--darker-blue]"
               placeholder="Enter your experience (in years)"
               value={formDetails.experience}
               onChange={inputChange}
@@ -81,16 +81,12 @@ const ApplyDoctor = () => {
             <input
               type="number"
               name="fees"
-              className="form-input"
+              className="p-[15px] outline-none border-b-2 border-b-gray-300 focus:border-b-[--darker-blue]"
               placeholder="Enter your fees  (in dollars)"
               value={formDetails.fees}
               onChange={inputChange}
             />
-            <button
-              type="submit"
-              className="btn form-btn"
-              onClick={btnClick}
-            >
+            <button type="submit" className="btn form-btn" onClick={btnClick}>
               apply
             </button>
           </form>

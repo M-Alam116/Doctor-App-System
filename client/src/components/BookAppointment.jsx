@@ -51,8 +51,8 @@ const BookAppointment = ({ setModalOpen, ele }) => {
   return (
     <>
       <div className="modal flex-center">
-        <div className="modal__content">
-          <h2 className="page-heading">Book Appointment</h2>
+        <div className="modal__content shadow-2xl w-full max-w-[400px]">
+          <h2 className="page-heading leading-[40px]">Book Appointment</h2>
           <IoMdClose
             onClick={() => {
               setModalOpen(false);
@@ -64,14 +64,14 @@ const BookAppointment = ({ setModalOpen, ele }) => {
               <input
                 type="date"
                 name="date"
-                className="form-input"
+                className="text-black p-[15px] rounded-md"
                 value={formDetails.date}
                 onChange={inputChange}
               />
               <input
                 type="time"
                 name="time"
-                className="form-input"
+                className="text-black p-[15px] rounded-md"
                 value={formDetails.time}
                 onChange={inputChange}
               />
