@@ -7,9 +7,12 @@ header {
   position: sticky;
   top: 0%;
   left: 0%;
-  background-color: white;
+  /* background: url("/public/header-bg.png"); */
+  background-color: var(--darker-blue);
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: 2;
-  box-shadow: 0 0 20px 0 rgba(144, 174, 205, 0.339);
+  /* box-shadow: 0 0 20px 0 rgba(144, 174, 205, 0.339); */
   transition: all 0.2 linear;
 }
 
@@ -23,7 +26,7 @@ nav {
 
 .nav-logo a,
 .nav-links a {
-  color: var(--bold-text-color);
+  color: var(--white);
 }
 
 .nav-links {
@@ -66,7 +69,7 @@ nav {
     left: 0%;
     width: 100vw;
     height: 100vh;
-    background-color: white;
+    background-color: var(--darker-blue);
     flex-direction: column;
     transform: translateX(100%);
     justify-content: center;
@@ -85,5 +88,6 @@ nav {
     position: absolute;
     top: 33%;
     right: 7%;
+    color:  white;
   }
 }

@@ -4,7 +4,7 @@ import "../styles/homecircles.css";
 
 const HomeCircles = () => {
   return (
-    <section className="container circles">
+    <section className="flex flex-col sm:flex-row justify-evenly items-center gap-[2rem] py-[2rem]">
       <div className="circle">
         <CountUp
           start={0}

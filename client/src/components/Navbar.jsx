@@ -38,6 +38,9 @@ const Navbar = () => {
           <li>
             <NavLink to={"/doctors"}>Doctors</NavLink>
           </li>
+          <li>
+            <HashLink to={"/#contact"}>Contact Us</HashLink>
+          </li>
           {token && user.isAdmin && (
             <li>
               <NavLink to={"/dashboard/users"}>Dashboard</NavLink>
@@ -55,29 +58,24 @@ const Navbar = () => {
                 <NavLink to={"/applyfordoctor"}>Apply for doctor</NavLink>
               </li>
               <li>
-                <HashLink to={"/#contact"}>Contact Us</HashLink>
-              </li>
-              <li>
                 <NavLink to={"/profile"}>Profile</NavLink>
               </li>
             </>
           )}
           {!token ? (
             <>
-              <li>
-                <NavLink className="btn" to={"/login"}>
-                  Login
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="btn" to={"/register"}>
-                  Register
+              <li className="">
+                <NavLink
+                  className="p-[10px] border-[2px] border-white rounded-[5px] hover:bg-white hover:text-black transition-all duration-200"
+                  to={"/login"}
+                >
+                  Login / Register
                 </NavLink>
               </li>
             </>
           ) : (
             <li>
-              <span className="btn" onClick={logoutFunc}>
+              <span className="p-[10px] border-[2px] text-white border-white rounded-[5px] hover:bg-white hover:text-black transition-all duration-200 cursor-pointer" onClick={logoutFunc}>
                 Logout
               </span>
             </li>
