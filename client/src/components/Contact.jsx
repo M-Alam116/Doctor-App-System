@@ -89,7 +89,7 @@ const Contact = () => {
             cols="12"
           ></textarea>
 
-          <button type="submit" className="btn w-fit">
+          <button type="submit" className="btn w-fit mt-[2rem]">
             Send Message
           </button>
         </form>
