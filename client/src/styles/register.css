@@ -47,6 +47,20 @@ input::-webkit-inner-spin-button {
   color: var(--darker-blue);
 }
 
+.loginBg {
+  background-image: url("/public/login.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.signupBg {
+  background-image: url("/public/signup.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 @media (max-width: 1184px) {
   .register-container {
     width: 30%;

@@ -93,14 +93,18 @@ function Register() {
   };
 
   return (
-    <section className="register-section flex-center">
-      <div className="register-container flex-center">
-        <h2 className="form-heading">Sign Up</h2>
-        <form onSubmit={formSubmit} className="register-form">
+    <section className="grid grid-cols-1 lg:grid-cols-2 min-h-screen w-full">
+      <div className="signupBg w-full min-h-screen hidden lg:flex"></div>
+      <div className="w-full min-h-screen flex flex-col justify-center items-center px-[10px] py-[3rem]">
+        <h2 className="page-heading">Sign Up</h2>
+        <form
+          onSubmit={formSubmit}
+          className="flex flex-col gap-[2rem] w-full sm:w-[80%] mx-auto mt-[2rem]"
+        >
           <input
             type="text"
             name="firstname"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
             placeholder="Enter your first name"
             value={formDetails.firstname}
             onChange={inputChange}
@@ -108,7 +112,7 @@ function Register() {
           <input
             type="text"
             name="lastname"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
             placeholder="Enter your last name"
             value={formDetails.lastname}
             onChange={inputChange}
@@ -116,7 +120,7 @@ function Register() {
           <input
             type="email"
             name="email"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
             placeholder="Enter your email"
             value={formDetails.email}
             onChange={inputChange}
@@ -126,12 +130,12 @@ function Register() {
             onChange={(e) => onUpload(e.target.files[0])}
             name="profile-pic"
             id="profile-pic"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
           />
           <input
             type="password"
             name="password"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
             placeholder="Enter your password"
             value={formDetails.password}
             onChange={inputChange}
@@ -139,25 +143,30 @@ function Register() {
           <input
             type="password"
             name="confpassword"
-            className="form-input"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
             placeholder="Confirm your password"
             value={formDetails.confpassword}
             onChange={inputChange}
           />
           <button
             type="submit"
-            className="btn form-btn"
+            className="flex mx-auto mt-[1rem] bg-[#ff4b2b] w-[140px] p-[12px] rounded-full text-white text-[16px] justify-center font-[600]"
             disabled={loading ? true : false}
           >
-            sign up
+            Sign up
           </button>
         </form>
-        <p>
-          Already a user?{" "}
-          <NavLink className="login-link" to={"/login"}>
+        <p className="text-[16px] font-[500] mt-[2rem] text-center leading-[20px]">
+          Already have an account?{" "}
+          <NavLink className="text-[--darker-blue]" to={"/login"}>
             Log in
           </NavLink>
         </p>
+        <NavLink to={"/"}>
+          <button className="bg-[#ff4b2b] w-[100px] p-[10px] rounded-md text-white text-[14px] font-[600] mt-[1rem]">
+            Home
+          </button>
+        </NavLink>
       </div>
     </section>
   );
