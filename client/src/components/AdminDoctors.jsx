@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
@@ -15,13 +16,15 @@ const AdminDoctors = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
-  const getAllDoctors = async (e) => {
+  const getAllDoctors = async () => {
     try {
       dispatch(setLoading(true));
       const temp = await fetchData(`/doctor/getalldoctors`);
       setDoctors(temp);
       dispatch(setLoading(false));
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+    }
   };
 
   const deleteUser = async (userId) => {
@@ -47,7 +50,7 @@ const AdminDoctors = () => {
         getAllDoctors();
       }
     } catch (error) {
-      return error;
+      console.error("Error deleting doctor:", error);
     }
   };
 
@@ -55,64 +58,86 @@ const AdminDoctors = () => {
     getAllDoctors();
   }, []);
 
+  const columns = [
+    { field: "id", headerName: "S.No", width: 70 },
+    {
+      field: "pic",
+      headerName: "Pic",
+      renderCell: (params) => (
+        <img
+          className="user-table-pic"
+          src={params.row.userId?.pic}
+          alt={params.row.userId?.firstname}
+        />
+      ),
+      width: 100,
+    },
+    { field: "firstname", headerName: "First Name", flex: 1 },
+    { field: "lastname", headerName: "Last Name", flex: 1 },
+    { field: "email", headerName: "Email", flex: 1 },
+    { field: "mobile", headerName: "Mobile No.", flex: 1 },
+    { field: "experience", headerName: "Experience", flex: 1 },
+    { field: "specialization", headerName: "Specialization", flex: 1 },
+    { field: "fees", headerName: "Fees", flex: 1 },
+    {
+      field: "remove",
+      headerName: "Remove",
+      width: 120,
+      renderCell: (params) => (
+        <button
+          className="btn user-btn"
+          onClick={() => deleteUser(params.row.userId?._id)}
+        >
+          Remove
+        </button>
+      ),
+    },
+  ];
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
-        <section className="user-section">
+        <section className="w-full min-h-screen px-[10px] overflow-x-scroll">
           <h3 className="home-sub-heading">All Doctors</h3>
           {doctors.length > 0 ? (
-            <div className="user-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Pic</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile No.</th>
-                    <th>Experience</th>
-                    <th>Specialization</th>
-                    <th>Fees</th>
-                    <th>Remove</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {doctors?.map((ele, i) => {
-                    return (
-                      <tr key={ele?._id}>
-                        <td>{i + 1}</td>
-                        <td>
-                          <img
-                            className="user-table-pic"
-                            src={ele?.userId?.pic}
-                            alt={ele?.userId?.firstname}
-                          />
-                        </td>
-                        <td>{ele?.userId?.firstname}</td>
-                        <td>{ele?.userId?.lastname}</td>
-                        <td>{ele?.userId?.email}</td>
-                        <td>{ele?.userId?.mobile}</td>
-                        <td>{ele?.experience}</td>
-                        <td>{ele?.specialization}</td>
-                        <td>{ele?.fees}</td>
-                        <td className="select">
-                          <button
-                            className="btn user-btn"
-                            onClick={() => {
-                              deleteUser(ele?.userId?._id);
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            <div style={{ height: 500, width: "100%" }}>
+              <DataGrid
+                rows={doctors.map((ele, index) => ({
+                  id: index + 1,
+                  userId: ele.userId,
+                  pic: ele.userId?.pic,
+                  firstname: ele.userId?.firstname,
+                  lastname: ele.userId?.lastname,
+                  email: ele.userId?.email,
+                  mobile: ele.userId?.mobile,
+                  experience: ele.experience,
+                  specialization: ele.specialization,
+                  fees: ele.fees,
+                }))}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
+                  },
+                }}
+                slots={{ toolbar: GridToolbar }}
+                slotProps={{
+                  toolbar: {
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 500 },
+                  },
+                }}
+                pageSizeOptions={[5]}
+                checkboxSelection
+                disableRowSelectionOnClick
+                disableColumnFilter
+                disableDensitySelector
+                disableColumnSelector
+              />
             </div>
           ) : (
             <Empty />

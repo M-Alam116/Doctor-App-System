@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Loading from "./Loading";
 import { setLoading } from "../redux/reducers/rootSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,16 +15,61 @@ const Users = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
-  const getAllUsers = async (e) => {
+  const columns = [
+    { field: "id", headerName: "S.No", width: 70 },
+    {
+      field: "pic",
+      headerName: "Pic",
+      width: 100,
+      renderCell: (params) => (
+        <img
+          className="user-table-pic"
+          src={params.row.pic}
+          alt={params.row.firstname}
+        />
+      ),
+    },
+    { field: "firstname", headerName: "First Name", width: 130 },
+    { field: "lastname", headerName: "Last Name", width: 130 },
+    { field: "email", headerName: "Email", width: 200 },
+    { field: "mobile", headerName: "Mobile No.", width: 130 },
+    { field: "age", headerName: "Age", width: 80 },
+    { field: "gender", headerName: "Gender", width: 100 },
+    { field: "isDoctor", headerName: "Is Doctor", width: 120 },
+    {
+      field: "remove",
+      headerName: "Remove",
+      width: 120,
+      renderCell: (params) => (
+        <button
+          className="btn user-btn"
+          onClick={() => deleteUser(params.row._id)}
+        >
+          Remove
+        </button>
+      ),
+    },
+  ];
+
+  const getAllUsers = async () => {
     try {
       dispatch(setLoading(true));
-      const temp = await fetchData(`/user/getallusers`);
-      setUsers(temp);
+      const temp = await fetchData("/user/getallusers");
+      setUsers(
+        temp.map((ele, index) => ({
+          id: index + 1,
+          ...ele,
+          isDoctor: ele.isDoctor ? "Yes" : "No",
+        }))
+      );
       dispatch(setLoading(false));
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   };
 
   const deleteUser = async (userId) => {
+    console.log("Deleting user with userId:", userId);
     try {
       const confirm = window.confirm("Are you sure you want to delete?");
       if (confirm) {
@@ -57,64 +103,37 @@ const Users = () => {
       {loading ? (
         <Loading />
       ) : (
-        <section className="user-section">
-          <h3 className="home-sub-heading">All Users</h3>
+        <div className="w-full min-h-screen px-[10px] overflow-x-scroll">
+          <h3 className="home-sub-heading my-[2rem]">All Users</h3>
           {users.length > 0 ? (
-            <div className="user-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Pic</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile No.</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Is Doctor</th>
-                    <th>Remove</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users?.map((ele, i) => {
-                    return (
-                      <tr key={ele?._id}>
-                        <td>{i + 1}</td>
-                        <td>
-                          <img
-                            className="user-table-pic"
-                            src={ele?.pic}
-                            alt={ele?.firstname}
-                          />
-                        </td>
-                        <td>{ele?.firstname}</td>
-                        <td>{ele?.lastname}</td>
-                        <td>{ele?.email}</td>
-                        <td>{ele?.mobile}</td>
-                        <td>{ele?.age}</td>
-                        <td>{ele?.gender}</td>
-                        <td>{ele?.isDoctor ? "Yes" : "No"}</td>
-                        <td className="select">
-                          <button
-                            className="btn user-btn"
-                            onClick={() => {
-                              deleteUser(ele?._id);
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <DataGrid
+              rows={users}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
+                },
+              }}
+              slots={{ toolbar: GridToolbar }}
+              slotProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+              disableColumnFilter
+              disableDensitySelector
+              disableColumnSelector
+            />
           ) : (
             <Empty />
           )}
-        </section>
+        </div>
       )}
     </>
   );

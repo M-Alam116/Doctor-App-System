@@ -63,16 +63,21 @@ const Sidebar = () => {
           <ul>
             {sidebar.map((ele, i) => {
               return (
-                <li key={i}>
-                  {ele.icon}
-                  <NavLink to={ele.path}>{ele.name}</NavLink>
-                </li>
+                <NavLink to={ele.path}>
+                  <li
+                    key={i}
+                    className="text-[18px] font-[500] flex items-center gap-[10px]"
+                  >
+                    <figure className="text-[24px]">{ele.icon}</figure>
+                    <p className="hidden md:block">{ele.name}</p>
+                  </li>
+                </NavLink>
               );
             })}
           </ul>
-          <div className="logout-container">
-            <MdLogout />
-            <p onClick={logoutFunc}>Logout</p>
+          <div className="logout-container" onClick={logoutFunc}>
+            <MdLogout className="text-[24px]" />
+            <p className="hidden md:block">Logout</p>
           </div>
         </div>
       </section>
