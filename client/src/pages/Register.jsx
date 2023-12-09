@@ -88,6 +88,7 @@ function Register() {
           loading: "Registering user...",
         }
       );
+
       return navigate("/login");
     } catch (error) {}
   };
@@ -126,13 +127,6 @@ function Register() {
             onChange={inputChange}
           />
           <input
-            type="file"
-            onChange={(e) => onUpload(e.target.files[0])}
-            name="profile-pic"
-            id="profile-pic"
-            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
-          />
-          <input
             type="password"
             name="password"
             className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
@@ -147,6 +141,13 @@ function Register() {
             placeholder="Confirm your password"
             value={formDetails.confpassword}
             onChange={inputChange}
+          />
+          <input
+            type="file"
+            onChange={(e) => onUpload(e.target.files[0])}
+            name="profile-pic"
+            id="profile-pic"
+            className="p-[15px] outline-none border-b-2 border-b-gray-300 bg-transparent resize-none focus:border-b-[--darker-blue] focus:bg-[--light-blue]"
           />
           <button
             type="submit"

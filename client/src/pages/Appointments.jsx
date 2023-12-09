@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Empty from "../components/Empty";
-import Footer from "../components/Footer";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import Empty from "../components/Empty";
 import fetchData from "../helper/apiCall";
 import { setLoading } from "../redux/reducers/rootSlice";
-import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -17,30 +18,91 @@ const Appointments = () => {
   const { loading } = useSelector((state) => state.root);
   const { userId } = jwt_decode(localStorage.getItem("token"));
 
-  const getAllAppoint = async (e) => {
+  const columns = [
+    { field: "id", headerName: "S.No", width: 70 },
+    {
+      field: "doctorName",
+      headerName: "Doctor",
+      valueGetter: (params) =>
+        `${params.row.doctorId?.firstname || ""} ${
+          params.row.doctorId?.lastname || ""
+        }`,
+      flex: 1,
+    },
+    {
+      field: "patientName",
+      headerName: "Patient",
+      valueGetter: (params) =>
+        `${params.row.userId?.firstname || ""} ${
+          params.row.userId?.lastname || ""
+        }`,
+      flex: 1,
+    },
+    { field: "date", headerName: "Appointment Date", flex: 1 },
+    { field: "time", headerName: "Appointment Time", flex: 1 },
+    { field: "createdAt", headerName: "Booking Date", flex: 1 },
+    {
+      field: "updatedAt",
+      headerName: "Booking Time",
+      valueGetter: (params) => params.row.updatedAt.split("T")[1].split(".")[0],
+      flex: 1,
+    },
+    { field: "status", headerName: "Status", flex: 1 },
+    {
+      field: "action",
+      headerName: "Action",
+      renderCell: (params) => (
+        <button
+          className={`btn user-btn accept-btn ${
+            params.row.status === "Completed" ? "disable-btn" : ""
+          }`}
+          disabled={params.row.status === "Completed"}
+          onClick={() => complete(params.row)}
+        >
+          Complete
+        </button>
+      ),
+      flex: 1,
+    },
+  ];
+
+  const getAllAppoint = async () => {
     try {
       dispatch(setLoading(true));
       const temp = await fetchData(
         `/appointment/getallappointments?search=${userId}`
       );
-      setAppointments(temp);
+      setAppointments(
+        temp.map((ele, index) => ({
+          id: index + 1,
+          doctorId: ele.doctorId,
+          userId: ele.userId,
+          date: ele.date,
+          time: ele.time,
+          createdAt: ele.createdAt.split("T")[0],
+          updatedAt: ele.updatedAt,
+          status: ele.status,
+        }))
+      );
       dispatch(setLoading(false));
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+    }
   };
 
   useEffect(() => {
     getAllAppoint();
-  }, []);
+  }, [dispatch, userId]);
 
-  const complete = async (ele) => {
+  const complete = async (row) => {
     try {
       await toast.promise(
         axios.put(
           "/appointment/completed",
           {
-            appointid: ele?._id,
-            doctorId: ele?.doctorId?._id,
-            doctorname: `${ele?.userId?.firstname} ${ele?.userId?.lastname}`,
+            appointid: row._id,
+            doctorId: row.doctorId?._id,
+            doctorname: `${row.userId?.firstname} ${row.userId?.lastname}`,
           },
           {
             headers: {
@@ -67,75 +129,43 @@ const Appointments = () => {
       {loading ? (
         <Loading />
       ) : (
-        <section className="container notif-section">
-          <h2 className="page-heading">Your Appointments</h2>
-
+        <div className="w-full min-h-screen px-[10px] overflow-x-scroll">
+          <h1 className="py-[2rem] text-center text-[34px] font-[700] opacity-70">
+            Your Appointments
+          </h1>
           {appointments.length > 0 ? (
-            <div className="appointments">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Doctor</th>
-                    <th>Patient</th>
-                    <th>Appointment Date</th>
-                    <th>Appointment Time</th>
-                    <th>Booking Date</th>
-                    <th>Booking Time</th>
-                    <th>Status</th>
-                    {userId === appointments[0].doctorId?._id ? (
-                      <th>Action</th>
-                    ) : (
-                      <></>
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {appointments?.map((ele, i) => {
-                    return (
-                      <tr key={ele?._id}>
-                        <td>{i + 1}</td>
-                        <td>
-                          {ele?.doctorId?.firstname +
-                            " " +
-                            ele?.doctorId?.lastname}
-                        </td>
-                        <td>
-                          {ele?.userId?.firstname + " " + ele?.userId?.lastname}
-                        </td>
-                        <td>{ele?.date}</td>
-                        <td>{ele?.time}</td>
-                        <td>{ele?.createdAt.split("T")[0]}</td>
-                        <td>{ele?.updatedAt.split("T")[1].split(".")[0]}</td>
-                        <td>{ele?.status}</td>
-                        {userId === ele?.doctorId?._id ? (
-                          <td>
-                            <button
-                              className={`btn user-btn accept-btn ${
-                                ele?.status === "Completed" ? "disable-btn" : ""
-                              }`}
-                              disabled={ele?.status === "Completed"}
-                              onClick={() => complete(ele)}
-                            >
-                              Complete
-                            </button>
-                          </td>
-                        ) : (
-                          <></>
-                        )}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <DataGrid
+              rows={appointments}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
+                },
+              }}
+              slots={{ toolbar: GridToolbar }}
+              slotProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+              disableColumnFilter
+              disableDensitySelector
+              disableColumnSelector
+            />
           ) : (
             <Empty />
           )}
-        </section>
+        </div>
       )}
       <Footer />
     </>
   );
 };
+
 export default Appointments;
