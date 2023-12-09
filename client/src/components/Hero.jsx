@@ -11,9 +11,9 @@ const Hero = () => {
           Our Responsibility
         </h1>
         <p className="text-[16px] md:text-[18px] font-[500] leading-[25px]">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-          tenetur doloremque molestias repellat minus asperiores in aperiam
-          dolor, quaerat praesentium.
+          Carry the power to book appointments wherever you go. Seamlessly
+          integrate health into your lifestyle with our mobile-friendly platform
+          – because health should adapt to you.
         </p>
 
         <NavLink to={"/doctors"}>

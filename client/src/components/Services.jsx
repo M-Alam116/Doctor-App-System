@@ -6,37 +6,37 @@ const ServicesData = [
     id: 1,
     image: "/s1.jpg",
     title: "Prenatal/New-Born",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "Guided care from pregnancy to parenthood, ensuring a seamless and joyous journey.",
   },
   {
     id: 2,
     image: "/s2.jpg",
     title: "Vaccinations",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "Safeguard your loved ones with tailored immunization plans and expert consultations.",
   },
   {
     id: 3,
     image: "/s3.jpg",
     title: "New-Born Examinate",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "Thorough checkups and developmental tracking for a healthy start in life.",
   },
   {
     id: 4,
     image: "/s4.jpg",
     title: "Blood Tests",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "Precise diagnostics for informed health decisions, with swift and accurate results.",
   },
   {
     id: 5,
     image: "/s5.jpg",
     title: "Diagnostic Tests",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "State-of-the-art diagnostics, from radiology services to comprehensive health assessments.",
   },
   {
     id: 6,
     image: "/s6.jpg",
     title: "Home Visits",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    description: "Personalized healthcare brought to your doorstep, ensuring well-being in the comfort of home",
   },
 ];
 

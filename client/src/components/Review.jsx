@@ -7,7 +7,7 @@ export default function Review() {
       image: "/client1.png",
       rating: 5,
       review:
-        "I have taken medical services from them. They treat so well and they are providing the best medical services.",
+        "Having availed their medical services, I can confidently say they stand out in providing the best care. The staff is attentive, and the medical attention is thorough and thoughtful.",
     },
     {
       id: 2,
@@ -15,7 +15,7 @@ export default function Review() {
       image: "/client2.png",
       rating: 5,
       review:
-        "I have taken medical services from them. They treat so well and they are providing the best medical services.",
+        "I've found a reliable healthcare partner in them. The medical services are not only top-notch but also delivered with a genuine concern for the patient's well-being. Highly recommended.",
     },
     {
       id: 3,
@@ -23,7 +23,7 @@ export default function Review() {
       image: "/client3.png",
       rating: 5,
       review:
-        "I have taken medical services from them. They treat so well and they are providing the best medical services.",
+        "From the moment you walk in, it's evident that patient care is their priority. The medical services are not only effective but also delivered with a focus on making patients feel valued and heard.",
     },
   ];
 
