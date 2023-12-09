@@ -103,7 +103,7 @@ const Users = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full min-h-screen px-[10px] overflow-x-scroll">
+        <div className="w-full min-h-screen px-[10px] overflow-x-scroll overflow-y-hidden">
           <h3 className="home-sub-heading my-[2rem]">All Users</h3>
           {users.length > 0 ? (
             <DataGrid

@@ -140,7 +140,7 @@ const AdminApplications = () => {
         <Loading />
       ) : (
         <section className="w-full min-h-screen px-[10px] overflow-x-scroll">
-          <h3 className="home-sub-heading my-[1rem]">All Applications</h3>
+          <h3 className="home-sub-heading my-[2rem]">All Applications</h3>
           {applications.length > 0 ? (
             <div style={{ height: 500, width: "100%" }}>
               <DataGrid

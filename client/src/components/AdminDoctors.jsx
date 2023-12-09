@@ -100,7 +100,7 @@ const AdminDoctors = () => {
         <Loading />
       ) : (
         <section className="w-full min-h-screen px-[10px] overflow-x-scroll">
-          <h3 className="home-sub-heading">All Doctors</h3>
+          <h3 className="home-sub-heading my-[2rem]">All Doctors</h3>
           {doctors.length > 0 ? (
             <div style={{ height: 500, width: "100%" }}>
               <DataGrid

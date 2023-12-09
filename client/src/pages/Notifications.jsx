@@ -49,7 +49,7 @@ const Notifications = () => {
         <Loading />
       ) : (
         <div className="w-full min-h-screen px-[10px] overflow-x-scroll">
-          <h1 className="py-[2rem] text-center text-[34px] font-[700] opacity-70">
+          <h1 className="py-[2rem] text-center text-[34px] font-[700] opacity-70 leading-[40px]">
             Your Notifications
           </h1>
           {notifications.length > 0 ? (
