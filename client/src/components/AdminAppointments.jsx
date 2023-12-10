@@ -37,7 +37,7 @@ const AdminAppointments = () => {
         axios.put(
           "/appointment/completed",
           {
-            appointid: ele?._id,
+            appointid: ele?.id,
             doctorId: ele?.doctorId._id,
             doctorname: `${ele?.userId?.firstname} ${ele?.userId?.lastname}`,
           },
@@ -114,8 +114,8 @@ const AdminAppointments = () => {
           {appointments.length > 0 ? (
             <div style={{ height: 500, width: "100%" }}>
               <DataGrid
-                rows={appointments.map((ele, index) => ({
-                  id: index + 1,
+                rows={appointments.map((ele) => ({
+                  id: ele._id,
                   doctorId: ele.doctorId,
                   userId: ele.userId,
                   date: ele.date,

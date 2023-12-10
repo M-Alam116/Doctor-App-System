@@ -74,7 +74,7 @@ const Appointments = () => {
       );
       setAppointments(
         temp.map((ele, index) => ({
-          id: index + 1,
+          id: ele._id,
           doctorId: ele.doctorId,
           userId: ele.userId,
           date: ele.date,
@@ -100,7 +100,7 @@ const Appointments = () => {
         axios.put(
           "/appointment/completed",
           {
-            appointid: row._id,
+            appointid: row.id,
             doctorId: row.doctorId?._id,
             doctorname: `${row.userId?.firstname} ${row.userId?.lastname}`,
           },
