@@ -32,7 +32,7 @@ const Doctors = () => {
         <section className="container">
           <h2 className="page-heading">Our Doctors</h2>
           {doctors.length > 0 ? (
-            <div className="mt-[2rem] flex flex-wrap justify-evenly gap-[2rem]">
+            <div className="mt-[2rem] w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-[2rem]">
               {doctors.map((ele) => {
                 return <DoctorCard ele={ele} key={ele._id} />;
               })}

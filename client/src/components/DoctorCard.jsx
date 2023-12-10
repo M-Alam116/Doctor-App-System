@@ -34,14 +34,14 @@ const DoctorCard = ({ ele }) => {
           <h2 className="text-[16px] font-[700] opacity-70">
             Specialization:{" "}
           </h2>
-          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[100px] text-center rounded-[5px] text-white p-[10px]">
+          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[110px] text-center rounded-[5px] text-white p-[10px]">
             {ele?.specialization}
           </p>
         </div>
 
         <div className="flex items-center justify-between">
           <h2 className="text-[16px] font-[700] opacity-70">Experience: </h2>
-          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[100px] text-center rounded-[5px] text-white p-[10px]">
+          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[110px] text-center rounded-[5px] text-white p-[10px]">
             {ele?.experience}yrs
           </p>
         </div>
@@ -50,14 +50,14 @@ const DoctorCard = ({ ele }) => {
           <h2 className="text-[16px] font-[700] opacity-70">
             Fees per consultation:{" "}
           </h2>
-          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[100px] text-center rounded-[5px] text-white p-[10px]">
+          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[110px] text-center rounded-[5px] text-white p-[10px]">
             $ {ele?.fees}
           </p>
         </div>
 
         <div className="flex items-center justify-between">
           <h2 className="text-[16px] font-[700] opacity-70">Phone: </h2>
-          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[100px] text-center rounded-[5px] text-white p-[10px]">
+          <p className="text-[14px] font-[500] bg-[--darker-blue] w-[110px] text-center rounded-[5px] text-white p-[10px]">
             {ele?.userId?.mobile ? ele?.userId?.mobile : "None"}
           </p>
         </div>
