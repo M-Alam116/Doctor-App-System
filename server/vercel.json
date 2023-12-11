@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "doctor-server",
+  "name": "healthbooker",
   "builds": [{ "src": "server.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/server.js" }]
 }
